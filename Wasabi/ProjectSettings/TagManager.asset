@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Character
   - Terrain
-  - characters
   layers:
   - Default
   - TransparentFX
