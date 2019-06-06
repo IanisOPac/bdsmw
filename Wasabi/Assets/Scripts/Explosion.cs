@@ -18,6 +18,7 @@ public class Explosion : MonoBehaviour {
     // Use this for initialization
     void Start () {
         _terrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Ferr2DT_PathTerrain>();
+        mat = _terrain.transform.localToWorldMatrix;
     }
 	
 	// Update is called once per frame
@@ -29,9 +30,10 @@ public class Explosion : MonoBehaviour {
     {
         List<Transform> lPoints = new List<Transform>();
         PolygonCollider2D colliderTerrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<PolygonCollider2D>();
-        point = Instantiate(empty, new Vector3(transform.position.x + radius, transform.position.y), transform.rotation);
+        //point = Instantiate(empty, new Vector3(transform.position.x + radius + 0.05f, transform.position.y), transform.rotation);
+        point = Instantiate(empty, new Vector3(transform.position.x, transform.position.y + 2), transform.rotation);
         GameObject overlapPoint;
-        for (int i = 0; i < numberOfPoints; i++)
+        /*for (int i = 0; i < numberOfPoints; i++)
         {
             if (colliderTerrain.bounds.Contains(point.transform.position))
             {
@@ -40,18 +42,36 @@ public class Explosion : MonoBehaviour {
                 Destroy(overlapPoint);
             }
             point.transform.RotateAround(transform.position, Vector3.forward, 360f / numberOfPoints);
+        }*/
+
+        if (colliderTerrain.bounds.Contains(point.transform.position))
+        {
+            overlapPoint = Instantiate(empty, point.transform.position, point.transform.rotation);
+            lPoints.Add(overlapPoint.transform);
+            Destroy(overlapPoint);
         }
+
         Destroy(point);
 
         return lPoints;
     }
 
-    List<Transform> GetPointsToErase()
+    List<int> GetPointsToErase()
     {
-        List<Transform> lPoints = new List<Transform>();
+        List<int> lPointsID = new List<int>();
         Path2D path = _terrain.PathData;
 
-        return lPoints;
+        for (int i = 0; i < path.Count; i++)
+        {
+            Vector2 world = mat.MultiplyPoint(path[i]);
+            Debug.Log(Vector2.Distance(world, transform.position));
+            if (Vector2.Distance(world, transform.position) <= radius)
+            {
+                lPointsID.Add(i);
+            }
+        }
+
+        return lPointsID;
     }
 
     private void OnDrawGizmos()
@@ -59,7 +79,14 @@ public class Explosion : MonoBehaviour {
         foreach (Transform point in GetDestructionRadius())
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(point.position, 0.3f);
+            Gizmos.DrawSphere(point.position, 0.1f);
+        }
+        Path2D path = _terrain.PathData;
+        foreach (int item in GetPointsToErase())
+        {
+            Vector2 world = mat.MultiplyPoint(path[item]);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(world, 0.3f);
         }
     }
 
