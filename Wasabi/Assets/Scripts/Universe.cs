@@ -21,6 +21,8 @@ public class Universe : MonoBehaviour
     private int numWormsMax = 3;
     public int NumWormsMax { get { return numWormsMax; } private set { numWormsMax = value; } }
 
+
+    bool AllSoldiersCreated = false;
     public float startTime;
     public float interval;
     private int[] characNum = new int[] { 0, 0 };
@@ -34,7 +36,8 @@ public class Universe : MonoBehaviour
     }
     private void Update()
     {
-        if (!(characNum[1] == numWormsMax))
+        //if (!(characNum[1] == numWormsMax))
+        if(!AllSoldiersCreated)
         {
             CreateSoldiers();
         }
@@ -111,7 +114,12 @@ public class Universe : MonoBehaviour
             clone.GetComponent<Char_script>().NumWorms = characNum[turn - 1] + 1;
             clone.GetComponent<Char_script>().name = "Equipe " + turn + " Worms " + (characNum[turn - 1] + 1);
             characNum[turn - 1]++;
+            if (turn == 2 && clone.GetComponent<Char_script>().NumWorms == 2)
+            {
+                AllSoldiersCreated = true;
+            }
             turn = turn == 1 ? 2 : 1;
+            
         }
     }
 
