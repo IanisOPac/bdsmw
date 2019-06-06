@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Character
-  - Terrain
+  - text
+  - plus
+  - minus
   layers:
   - Default
   - TransparentFX
