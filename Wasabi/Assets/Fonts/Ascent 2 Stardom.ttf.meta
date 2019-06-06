@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 65d58a173799116478abc478d906862c
+timeCreated: 1559814550
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 110
+  forceTextureCase: -1
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Ascent 2 Stardom
+  fontNames:
+  - Ascent 2 Stardom
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
