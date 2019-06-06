@@ -17,10 +17,11 @@ public class CameraFollow : MonoBehaviour {
         private get { return target; }
         set { target = value;  }
     }
-    void LateUpdate()
+    void LateUpdate()   
     {
         Vector3 desiredPosition = target.position + offset;
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        smoothedPosition = new Vector3(smoothedPosition.x, smoothedPosition.y, offset.z);
         transform.position = smoothedPosition;
     }
 }

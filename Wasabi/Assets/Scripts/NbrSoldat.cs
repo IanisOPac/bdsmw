@@ -8,6 +8,11 @@ public class NbrSoldat : MonoBehaviour {
 
     Text Text;
     int nbr = 1;
+    public int Nbr
+    {
+        private set { nbr = value; }
+        get { return nbr; }
+    }
     string soldat = " soldat";
     private void Start()
     {

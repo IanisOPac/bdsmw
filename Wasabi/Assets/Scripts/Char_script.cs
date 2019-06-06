@@ -40,11 +40,15 @@ public class Char_script : MonoBehaviour
         get { return selected; }
         set { selected = value; }
     }
-
-    [SerializeField] private Camera cam;
+    
     GameObject universe_laws;
     GameObject HUD;
-
+    bool shoted = false;
+    public bool Shoted
+    {
+        get { return shoted; }
+        set { shoted = value; }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -100,9 +104,10 @@ public class Char_script : MonoBehaviour
                 transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 4), ForceMode2D.Impulse);
             }
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) && !shoted)
             {
                 CreateBomb();
+                shoted = true;
             }
                
         }

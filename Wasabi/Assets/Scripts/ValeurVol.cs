@@ -15,5 +15,7 @@ public class ValeurVol : MonoBehaviour {
     public void TextUpdate (float value)
     {
         Valeur.text = Mathf.RoundToInt(value * 100) + " ";
-	}
+        PlayerPrefs.SetFloat("volume", value);
+    }
 }
+

@@ -18,7 +18,7 @@ public class Universe : MonoBehaviour
     private int wormsToPlay;
     public int WormsToPlay { get { return wormsToPlay; } set { wormsToPlay = value; } }
 
-    private int numWormsMax = 3;
+    private int numWormsMax;
     public int NumWormsMax { get { return numWormsMax; } private set { numWormsMax = value; } }
 
 
@@ -26,12 +26,14 @@ public class Universe : MonoBehaviour
     public float startTime;
     public float interval;
     private int[] characNum = new int[] { 0, 0 };
-    [SerializeField] GameObject charact;
+    [SerializeField] GameObject charact_mustard;
+    [SerializeField] GameObject charact_wasabi;
     Vector2 mouse;
     GameObject HUD;
     private void Start()
     {
-        //interval = Time.time;
+        NumWormsMax = PlayerPrefs.GetInt("nbSoldiers");
+        GameObject.Find("MusicIG").GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("volume");
         HUD = GameObject.Find("HUD");
     }
     private void Update()
@@ -41,7 +43,7 @@ public class Universe : MonoBehaviour
         {
             CreateSoldiers();
         }
-        else if (!gameStart && Time.time - interval >= 2)
+        else if (!gameStart && Time.time - interval >= 2 && AllSoldiersCreated)
         {
             PlayingTeam = 1;
             wormsToPlay = 1;
@@ -60,7 +62,6 @@ public class Universe : MonoBehaviour
             Camera.main.orthographicSize = 15;
             Char_script first = selectedPlayer.GetComponent<Char_script>();                
             GameObject.Find("HUD").GetComponentInChildren<HealthDisplay>().SetText(first.NumEquipe, first.NumWorms, first.Hp, first.HpMax);
-            //charact.GetComponent<Char_script>().startTime = Time.time;
         }
         else if(gameStart)
         {
@@ -70,7 +71,6 @@ public class Universe : MonoBehaviour
                 selectedPlayer.GetComponent<Char_script>().Selected = false;
                 ChangePlayer();                
                 
-                //GameObject.Find("HUD").GetComponentInChildren<HealthDisplay>().SetText(selectedPlayer.GetComponent<Char_script>().NumEquipe, selectedPlayer.GetComponent<Char_script>().NumWorms, selectedPlayer.GetComponent<Char_script>().Hp, selectedPlayer.GetComponent<Char_script>().HpMax);
                 startTime = Time.time;
             }
         }
@@ -96,6 +96,10 @@ public class Universe : MonoBehaviour
                 charact.GetComponent<Char_script>().Selected = true;
             }
         }
+        if (selectedPlayer.GetComponent<Char_script>().Shoted)
+        {
+            selectedPlayer.GetComponent<Char_script>().Shoted = false;
+        }
     }
 
     public void Timer()
@@ -107,14 +111,23 @@ public class Universe : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && Time.time - interval >= 1)
         {
-            interval = Time.time;
             mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            clone = Instantiate(charact, new Vector3(mouse.x, mouse.y + 50), transform.rotation);
+            if (turn == 1)
+            {
+                clone = Instantiate(charact_mustard, new Vector3(mouse.x, mouse.y + 50), transform.rotation);
+            }
+            else if(turn == 2)
+            {
+                clone = Instantiate(charact_wasabi, new Vector3(mouse.x, mouse.y + 50), transform.rotation);
+            }
+            interval = Time.time;
+            
+            
             clone.GetComponent<Char_script>().NumEquipe = turn;
             clone.GetComponent<Char_script>().NumWorms = characNum[turn - 1] + 1;
             clone.GetComponent<Char_script>().name = "Equipe " + turn + " Worms " + (characNum[turn - 1] + 1);
             characNum[turn - 1]++;
-            if (turn == 2 && clone.GetComponent<Char_script>().NumWorms == 2)
+            if (turn == 2 && clone.GetComponent<Char_script>().NumWorms == numWormsMax)
             {
                 AllSoldiersCreated = true;
             }
