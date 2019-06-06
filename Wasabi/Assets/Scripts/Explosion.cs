@@ -30,25 +30,17 @@ public class Explosion : MonoBehaviour {
     {
         List<Transform> lPoints = new List<Transform>();
         PolygonCollider2D colliderTerrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<PolygonCollider2D>();
-        //point = Instantiate(empty, new Vector3(transform.position.x + radius + 0.05f, transform.position.y), transform.rotation);
-        point = Instantiate(empty, new Vector3(transform.position.x, transform.position.y + 2), transform.rotation);
+        point = Instantiate(empty, new Vector3(transform.position.x + radius + 0.05f, transform.position.y), transform.rotation);
         GameObject overlapPoint;
-        /*for (int i = 0; i < numberOfPoints; i++)
+        for (int i = 0; i < numberOfPoints; i++)
         {
-            if (colliderTerrain.bounds.Contains(point.transform.position))
+            if (colliderTerrain.OverlapPoint(point.transform.position))
             {
                 overlapPoint = Instantiate(empty, point.transform.position, point.transform.rotation);
                 lPoints.Add(overlapPoint.transform);
                 Destroy(overlapPoint);
             }
             point.transform.RotateAround(transform.position, Vector3.forward, 360f / numberOfPoints);
-        }*/
-
-        if (colliderTerrain.bounds.Contains(point.transform.position))
-        {
-            overlapPoint = Instantiate(empty, point.transform.position, point.transform.rotation);
-            lPoints.Add(overlapPoint.transform);
-            Destroy(overlapPoint);
         }
 
         Destroy(point);
