@@ -7,22 +7,49 @@ public class Char_script : MonoBehaviour
 {
 
     [SerializeField] GameObject bomb;
+    
     private int numEquipe;
-
-    public void setNumEquipe(int num)
-    { numEquipe = num; }
+    private int numWorms;
+    public int NumWorms
+    {
+        get { return numWorms; }
+        set { numWorms = value; }
+    }
+    public int NumEquipe
+    {
+        get { return numEquipe; }
+        set { numEquipe = value; }
+    }
 
     [SerializeField] private int hp;
     [SerializeField] private int hpmax;
+    public int Hp
+    {
+        get { return hp; }
+        set { hp = value; }
+    }
+    public int HpMax
+    {
+        get { return hpmax; }
+        set { hpmax = value; }
+    }
+
+    [SerializeField] private bool selected = false;
+    public bool Selected
+    {
+        get { return selected; }
+        set { selected = value; }
+    }
 
     [SerializeField] private Camera cam;
-    GameObject floor;
-    Char_script selected;
-    Image img;
+    GameObject universe_laws;
+    GameObject HUD;
+
     // Start is called before the first frame update
     void Start()
     {
-        floor = GameObject.Find("floor");
+        universe_laws = GameObject.Find("universe_laws");
+        HUD = GameObject.Find("HUD");
     }
 
     private void OnMouseOver()
@@ -30,29 +57,45 @@ public class Char_script : MonoBehaviour
         Debug.Log(hp + "/" + hpmax);
     }
 
-
-    private void OnMouseDown()
+    // Update HUD, Cam, and selected element
+    public void ChangeSelected()
     {
-        floor.GetComponent<SelectWorms>().SetSelected(this.gameObject);
+        universe_laws.GetComponent<Universe>().Selected = this.gameObject;
+        Camera.main.GetComponent<CameraFollow>().Target = this.transform;
+        HUD.GetComponentInChildren<HealthDisplay>().SetText(NumEquipe, numWorms, hp, hpmax);
     }
 
+    // Update Timer on HUD
+    /*public void Timer()
+    {
+        HUD.GetComponentInChildren<HealthDisplay>().SetTime(Time.time - startTime);
+    }*/
+
+    public void SetSelected()
+    {
+        universe_laws.GetComponent<Universe>().Selected = transform.gameObject;
+    }
+
+    // Return the actual selected worm
     public Char_script GetSelected()
     {
-        return floor.GetComponent<SelectWorms>().GetSelected();
+        return universe_laws.GetComponent<Universe>().Selected.GetComponent<Char_script>();
     }
     // Update is called once per frame
     void Update()
     {
-        selected = GetSelected();
-        if (selected.Equals(this))
+
+        /*if (universe_laws.GetComponent<Universe>().GameStart)
+        {*/
+        if (Selected)
         {
+            ChangeSelected();
             if (Input.GetKey(KeyCode.Q))
             {
                 transform.Translate(new Vector3(-0.1f, 0));
             }
             if (Input.GetKey(KeyCode.D))
             {
-                //ddanim.Play("Soldat-Move");
                 transform.Translate(new Vector3(0.1f, 0));
             }
             if (Input.GetKeyDown(KeyCode.Space))
@@ -64,9 +107,8 @@ public class Char_script : MonoBehaviour
             {
                 CreateBomb();
             }
+               
         }
-
-
     }
 
     void CreateBomb()
@@ -90,6 +132,8 @@ public class Char_script : MonoBehaviour
     private void UpdateHealth()
     {
         hp = Mathf.Clamp(hp, 0, hpmax);
+        HUD.GetComponentInChildren<HealthDisplay>().SetText(NumEquipe, numWorms, hp, hpmax);
     }
+    
 
 }
