@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4584055876594792}
   - component: {fileID: 212485512545599994}
+  - component: {fileID: 114994001955321106}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -40,6 +41,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114994001955321106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1005252817508468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1b3fb61e0b72e49b80357edbb9b861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 5
+  numberOfPoints: 36
+  empty: {fileID: 1951281584746514, guid: 9fc33fcb9991d82458d4a382dbb0291c, type: 2}
 --- !u!212 &212485512545599994
 SpriteRenderer:
   m_ObjectHideFlags: 1
