@@ -84,9 +84,6 @@ public class Char_script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        /*if (universe_laws.GetComponent<Universe>().GameStart)
-        {*/
         if (Selected)
         {
             ChangeSelected();

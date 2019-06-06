@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Universe : MonoBehaviour
 {
     private GameObject selected;
-    private bool gameStart = false;    
+    private bool gameStart = false;
     public bool GameStart { get { return gameStart; } set { gameStart = value; } }
     GameObject clone;
     private int turn = 1;
@@ -18,12 +18,12 @@ public class Universe : MonoBehaviour
     private int wormsToPlay;
     public int WormsToPlay { get { return wormsToPlay; } set { wormsToPlay = value; } }
 
-    private int numWormsMax = 2;
+    private int numWormsMax = 3;
     public int NumWormsMax { get { return numWormsMax; } private set { numWormsMax = value; } }
 
     public float startTime;
     public float interval;
-    private int[] characNum = new int[] { 0,0 };
+    private int[] characNum = new int[] { 0, 0 };
     [SerializeField] GameObject charact;
     Vector2 mouse;
     GameObject HUD;
@@ -65,9 +65,32 @@ public class Universe : MonoBehaviour
             if (Time.time - startTime >= 10)
             {
                 selectedPlayer.GetComponent<Char_script>().Selected = false;
+                ChangePlayer();                
                 
-                GameObject.Find("HUD").GetComponentInChildren<HealthDisplay>().SetText(selectedPlayer.GetComponent<Char_script>().NumEquipe, selectedPlayer.GetComponent<Char_script>().NumWorms, selectedPlayer.GetComponent<Char_script>().Hp, selectedPlayer.GetComponent<Char_script>().HpMax);
+                //GameObject.Find("HUD").GetComponentInChildren<HealthDisplay>().SetText(selectedPlayer.GetComponent<Char_script>().NumEquipe, selectedPlayer.GetComponent<Char_script>().NumWorms, selectedPlayer.GetComponent<Char_script>().Hp, selectedPlayer.GetComponent<Char_script>().HpMax);
                 startTime = Time.time;
+            }
+        }
+    }
+
+    void ChangePlayer()
+    {
+        int NewPlayingTeam = PlayingTeam == 1 ? 2 : 1;
+        if(NewPlayingTeam == 1 && PlayingTeam == 2)
+        {
+            WormsToPlay++;
+            if(WormsToPlay > NumWormsMax)
+            {
+                WormsToPlay = 1;
+            }
+        }
+        PlayingTeam = NewPlayingTeam;
+        foreach (GameObject charact in GameObject.FindGameObjectsWithTag("characters"))
+        {
+            if (charact.GetComponent<Char_script>().NumEquipe == PlayingTeam && charact.GetComponent<Char_script>().NumWorms == wormsToPlay)
+            {
+                selectedPlayer = charact;
+                charact.GetComponent<Char_script>().Selected = true;
             }
         }
     }
