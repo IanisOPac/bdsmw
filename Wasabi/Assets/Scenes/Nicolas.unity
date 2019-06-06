@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grounded: 1
-  runSpeed: 40
+  runSpeed: 12
   anim: {fileID: 1428221248}
 --- !u!95 &1428221248
 Animator:
