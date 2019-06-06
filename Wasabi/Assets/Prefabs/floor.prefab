@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 23980772517661200}
   - component: {fileID: 33519837250281468}
   - component: {fileID: 114221212087795186}
-  - component: {fileID: 114039147910804374}
   m_Layer: 0
   m_Name: floor
   m_TagString: Untagged
@@ -83,18 +82,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1381285235690246}
   m_Mesh: {fileID: 4300000, guid: 6231e9e5b8147894a98f7ad0cf92a7fe, type: 2}
---- !u!114 &114039147910804374
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1381285235690246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b9ef1fa8b95df849bb32488b8f04884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charact: {fileID: 1170101666100012, guid: 5c658f9fa424a394e804fa30566d5515, type: 2}
 --- !u!114 &114221212087795186
 MonoBehaviour:
   m_ObjectHideFlags: 1
