@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 4
-  numberOfPoints: 144
+  numberOfPoints: 36
   empty: {fileID: 1951281584746514, guid: 9fc33fcb9991d82458d4a382dbb0291c, type: 2}
 --- !u!212 &212485512545599994
 SpriteRenderer:

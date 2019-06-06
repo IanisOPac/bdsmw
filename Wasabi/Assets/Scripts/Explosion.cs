@@ -19,6 +19,8 @@ public class Explosion : MonoBehaviour {
     void Start () {
         _terrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Ferr2DT_PathTerrain>();
         mat = _terrain.transform.localToWorldMatrix;
+
+        RecreateTerrain();
     }
 	
 	// Update is called once per frame
@@ -26,11 +28,11 @@ public class Explosion : MonoBehaviour {
 		
 	}
 
-    List<Transform> GetDestructionRadius()
+    List<Transform> GetPointsToAdd()
     {
         List<Transform> lPoints = new List<Transform>();
         PolygonCollider2D colliderTerrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<PolygonCollider2D>();
-        point = Instantiate(empty, new Vector3(transform.position.x + radius + 0.05f, transform.position.y), transform.rotation);
+        point = Instantiate(empty, new Vector3(transform.position.x + radius, transform.position.y), transform.rotation);
         GameObject overlapPoint;
         for (int i = 0; i < numberOfPoints; i++)
         {
@@ -63,12 +65,36 @@ public class Explosion : MonoBehaviour {
             }
         }
 
+        lPointsID.Sort();
+        lPointsID.Reverse();
+
         return lPointsID;
     }
 
-    private void OnDrawGizmos()
+    void RecreateTerrain()
     {
-        foreach (Transform point in GetDestructionRadius())
+        List<int> erasePoint = GetPointsToErase();
+        List<Transform> addPoint = GetPointsToAdd();
+
+        foreach (int item in erasePoint)
+        {
+            _terrain.RemovePoint(item);
+        }
+
+        foreach (Transform point in addPoint)
+        {
+            Vector2 explosionLocalPosition = _terrain.transform.worldToLocalMatrix.MultiplyPoint(point.transform.position);
+            _terrain.AddAutoPoint(explosionLocalPosition);
+        }
+
+        _terrain.Build(true);
+        _terrain.RecreateCollider();
+        Save();
+    }
+
+    /*private void OnDrawGizmos()
+    {
+        foreach (Transform point in GetPointsToAdd())
         {
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(point.position, 0.1f);
@@ -80,7 +106,7 @@ public class Explosion : MonoBehaviour {
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(world, 0.3f);
         }
-    }
+    }*/
 
     public Ferr2DT_PathTerrain Terrain
     {
