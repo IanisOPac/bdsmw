@@ -58,7 +58,12 @@ public class Char_script : MonoBehaviour
 
     private void OnMouseOver()
     {
-        Debug.Log(hp + "/" + hpmax);
+        HUD.GetComponentInChildren<HealthDisplay>().SetEnnemyInfo(NumEquipe, Hp, HpMax, NumWorms);
+    }
+
+    private void OnMouseExit()
+    {
+        HUD.GetComponentInChildren<HealthDisplay>().CleanEnnemyInfo();
     }
 
     // Update HUD, Cam, and selected element
@@ -69,11 +74,6 @@ public class Char_script : MonoBehaviour
         HUD.GetComponentInChildren<HealthDisplay>().SetText(NumEquipe, numWorms, hp, hpmax);
     }
 
-    // Update Timer on HUD
-    /*public void Timer()
-    {
-        HUD.GetComponentInChildren<HealthDisplay>().SetTime(Time.time - startTime);
-    }*/
 
     public void SetSelected()
     {
@@ -106,6 +106,10 @@ public class Char_script : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A) && !shoted)
             {
+                if (Time.time - universe_laws.GetComponent<Universe>().startTime <= 5)
+                {
+                    universe_laws.GetComponent<Universe>().startTime = Time.time - 5;
+                }                
                 CreateBomb();
                 shoted = true;
             }
@@ -127,14 +131,20 @@ public class Char_script : MonoBehaviour
         UpdateHealth();
         if (hp <= 0)
         {
-            Debug.Log("dead");
+            Death();
         }
+    }
+
+    private void Death()
+    {
+
     }
 
     private void UpdateHealth()
     {
         hp = Mathf.Clamp(hp, 0, hpmax);
         HUD.GetComponentInChildren<HealthDisplay>().SetText(NumEquipe, numWorms, hp, hpmax);
+        HUD.GetComponentInChildren<HealthDisplay>().SetHp();
     }
     
 

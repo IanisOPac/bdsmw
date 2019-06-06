@@ -12,6 +12,7 @@ public class CameraFollow : MonoBehaviour {
         Target = transform;
         Camera.main.orthographicSize = 70;
     }
+   
     public Transform Target
     {
         private get { return target; }
