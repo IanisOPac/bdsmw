@@ -14,9 +14,11 @@ public class Explosion : MonoBehaviour {
 
     GameObject point;
     Matrix4x4 mat;
+    float time;
 
     // Use this for initialization
     void Start () {
+        time = Time.time;
         _terrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Ferr2DT_PathTerrain>();
         mat = _terrain.transform.localToWorldMatrix;
 
@@ -25,7 +27,10 @@ public class Explosion : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Time.time - time >= 0.2f)
+        {
+            Destroy(this.gameObject);
+        }
 	}
 
     List<Transform> GetPointsToAdd()
