@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grounded: 1
-  runSpeed: 12
+  runSpeed: 2
   anim: {fileID: 1428221248}
 --- !u!95 &1428221248
 Animator:
@@ -373,7 +373,7 @@ Animation:
   m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_CullingType: 0
 --- !u!50 &1428221250
 Rigidbody2D:
