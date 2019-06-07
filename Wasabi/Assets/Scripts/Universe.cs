@@ -33,7 +33,7 @@ public class Universe : MonoBehaviour
     public float startTime;
     private float interval;
     private int[] characNum = new int[] { 0, 0 };
-    [SerializeField] GameObject charact_mustard;
+    [SerializeField] GameObject charact_ketchup;
     [SerializeField] GameObject charact_wasabi;
     Vector2 mouse;
     GameObject HUD;
@@ -85,6 +85,7 @@ public class Universe : MonoBehaviour
                     {
                         selectedPlayer = charact;
                         charact.GetComponent<Char_script>().Selected = true;
+                        charact.GetComponent<SoldatoControl>().Selected = true;
                     }
                 }
                 Timer();
@@ -101,6 +102,7 @@ public class Universe : MonoBehaviour
             if (Time.time - startTime >= 10)
             {
                 selectedPlayer.GetComponent<Char_script>().Selected = false;
+                selectedPlayer.GetComponent<SoldatoControl>().Selected = false;
                 ChangePlayer();                
                 //Redémarrage du timer
                 startTime = Time.time;
@@ -130,11 +132,13 @@ public class Universe : MonoBehaviour
             {
                 selectedPlayer = charact;
                 charact.GetComponent<Char_script>().Selected = true;
+                charact.GetComponent<SoldatoControl>().Selected = true;
             }
         }
         if (selectedPlayer.GetComponent<Char_script>().Shoted)
         {
             selectedPlayer.GetComponent<Char_script>().Shoted = false;
+            selectedPlayer.GetComponent<Char_script>().Create = false;
         }
     }
 
@@ -156,7 +160,7 @@ public class Universe : MonoBehaviour
                 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 if (turn == 1)
                 {
-                    clone = Instantiate(charact_mustard, new Vector3(mouse.x, 1), transform.rotation);
+                    clone = Instantiate(charact_ketchup, new Vector3(mouse.x, 1), transform.rotation);
                 }
                 else if(turn == 2)
                 {

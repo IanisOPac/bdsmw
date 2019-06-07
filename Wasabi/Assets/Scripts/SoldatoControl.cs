@@ -2,27 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-namespace SoldatoControl { 
-    public class SoldatoControl : MonoBehaviour
+public class SoldatoControl : MonoBehaviour
+{
+    public float runSpeed = 40f;
+    [SerializeField] private bool selected = false;
+    public bool Selected
     {
-        public float runSpeed = 40f;
+        get { return selected; }
+        set { selected = value; }
+    }
+    float xMove = 0f;
+    int direction;
+    Rigidbody2D rb;
+    bool FacingRight = true;
+    Animator anim; //Creer un Animator pour pouvoir lancer l'animation avec anim.Play
+    int canMove;
+    bool jumping = false;
 
-        float xMove = 0f;
-        int direction;
-        Rigidbody2D rb;
-        bool FacingRight = true;
-        Animator anim; //Creer un Animator pour pouvoir lancer l'animation avec anim.Play
-        int canMove;
-        bool jumping = false;
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+    }
 
-        void Start()
-        {
-            rb = GetComponent<Rigidbody2D>();
-            anim = GetComponent<Animator>();
-        }
-
-        // Update is called once per frame
-        void Update()
+    // Update is called once per frame
+    void Update()
+    {
+        if (Selected)
         {
             direction = FacingRight ? 1 : -1;
             canMove = jumping ? 0 : 1;
@@ -41,22 +47,22 @@ namespace SoldatoControl {
 
             Flip();
         }
+    }
 
-        public void Flip()
+    public void Flip()
+    {
+        if (xMove < 0 && FacingRight || xMove > 0 && !FacingRight)
         {
-            if (xMove < 0 && FacingRight || xMove > 0 && !FacingRight)
-            {
-                transform.Rotate(0, 180, 0);
-                FacingRight = !FacingRight;
-            }
+            transform.Rotate(0, 180, 0);
+            FacingRight = !FacingRight;
         }
-        private void OnCollisionEnter2D(Collision2D collision)
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Terrain")
         {
-            if (collision.gameObject.tag == "Terrain")
-            {
-                jumping = false;
-                anim.SetBool("Jumping", false);
-            }
+            jumping = false;
+            anim.SetBool("Jumping", false);
         }
     }
 }

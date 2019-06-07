@@ -51,9 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540a1dc1a73b45d4f9fef62710cb2f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indic: {fileID: 0}
+  tour: {fileID: 0}
+  joueur: {fileID: 0}
   startTime: 0
-  interval: 0
-  charact_mustard: {fileID: 1358680229939102, guid: 5c658f9fa424a394e804fa30566d5515,
+  charact_mustard: {fileID: 1580656054891330, guid: 49f1d5e5b3df30a4c9117601b4b37197,
     type: 2}
-  charact_wasabi: {fileID: 1332837909658550, guid: 4b60a961dadc20e458c4a534d7045670,
+  charact_wasabi: {fileID: 1420783099990864, guid: 8239ed64282a2484a82f329a6abf1d1f,
     type: 2}

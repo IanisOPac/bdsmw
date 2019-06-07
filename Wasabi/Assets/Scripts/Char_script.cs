@@ -40,10 +40,24 @@ public class Char_script : MonoBehaviour
         get { return selected; }
         set { selected = value; }
     }
-    
+    float timePassed, timeDuring;
+    int strengh = 400;
     GameObject universe_laws;
     GameObject HUD;
+    Vector3 mouse_position;
+    float mouse_distance;
+    float angle_souris;
+    bool create = false;
+    public bool Create
+    {
+        get { return create; }
+        set { create = value; }
+    }
     bool shoted = false;
+    int dir;
+    Vector2 unitVect, souris;
+    [SerializeField] GameObject prefabs_bullet;
+    GameObject clone;
     public bool Shoted
     {
         get { return shoted; }
@@ -90,39 +104,61 @@ public class Char_script : MonoBehaviour
     {
         if (Selected)
         {
-            ChangeSelected();
-            if (Input.GetKey(KeyCode.Q))
+            ChangeSelected();                           
+            CreateBomb();
+            if (!shoted)
             {
-                transform.Translate(new Vector3(-0.1f, 0));
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                transform.Translate(new Vector3(0.1f, 0));
-            }
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 4), ForceMode2D.Impulse);
-            }
+                mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                angle_souris = Mathf.Atan((mouse_position.y - transform.position.y) / (mouse_position.x - transform.position.x));
+                mouse_distance = (mouse_position.y - transform.position.y) / (mouse_position.x - transform.position.x);
+                souris = mouse_position - transform.position;
+                unitVect = new Vector2(souris.x / Mathf.Sqrt(souris.x * souris.x + souris.y * souris.y), souris.y / Mathf.Sqrt(souris.x * souris.x + souris.y * souris.y));
+                if (Input.GetKey(KeyCode.A) && !create)
+                {                    
+                    timePassed = Time.time;
+                    create = true;
 
-            if (Input.GetKey(KeyCode.A) && !shoted)
-            {
-                if (Time.time - universe_laws.GetComponent<Universe>().startTime <= 5)
+                }
+                else if (Input.GetKey(KeyCode.A) && create)
+                {                
+                    timeDuring = Time.time - timePassed;
+                    if (timeDuring > 3)
+                    {
+                        create = false;
+                        clone = Instantiate(prefabs_bullet, new Vector3(transform.position.x + unitVect.x * 3, transform.position.y), transform.rotation);
+                        clone.GetComponent<Rigidbody2D>().AddForce(new Vector3(strengh * timeDuring * unitVect.x, strengh * timeDuring * unitVect.y));
+                        shoted = true;
+                    }
+                }
+                else if (create)
                 {
-                    universe_laws.GetComponent<Universe>().startTime = Time.time - 5;
-                }                
-                CreateBomb();
-                shoted = true;
+                    if (Time.time - universe_laws.GetComponent<Universe>().startTime <= 5)
+                    {
+                        universe_laws.GetComponent<Universe>().startTime = Time.time - 5;
+                    }
+                    if (unitVect.x < 0)
+                    {
+                        dir = -1;
+                    }
+                    else
+                    {
+                        dir = 1;
+                    }
+                    clone = Instantiate(prefabs_bullet, new Vector3(transform.position.x + unitVect.x * 3, transform.position.y), transform.rotation);
+                    clone.GetComponent<Rigidbody2D>().AddForce(new Vector3(unitVect.x * strengh * timeDuring, unitVect.y * strengh * timeDuring));
+                    shoted = true;
+                }
             }
-               
+            
         }
     }
 
     void CreateBomb()
     {
-        GameObject clone;
+        /*GameObject clone;
         clone = Instantiate(bomb, new Vector2(transform.position.x + 1, transform.position.y), transform.rotation);
         clone.GetComponent<Rigidbody2D>().AddForce(new Vector2(10, 10));
-        Physics2D.IgnoreCollision(clone.GetComponent<CircleCollider2D>(), GetComponent<BoxCollider2D>(), true);
+        Physics2D.IgnoreCollision(clone.GetComponent<CircleCollider2D>(), GetComponent<BoxCollider2D>(), true);*/
     }
 
     public void TakeDamage(int damages)
@@ -137,7 +173,7 @@ public class Char_script : MonoBehaviour
 
     private void Death()
     {
-
+        // TO DO
     }
 
     private void UpdateHealth()

@@ -4,7 +4,7 @@ using UnityEngine;
 using Ferr;
 
 public class Explosion : MonoBehaviour {
-
+    [SerializeField] int damage;
     Ferr2DT_PathTerrain _terrain;
     List<Vector2> _original = new List<Vector2>();
 
@@ -23,6 +23,7 @@ public class Explosion : MonoBehaviour {
         mat = _terrain.transform.localToWorldMatrix;
 
         RecreateTerrain();
+        DamageOnTargets();
     }
 	
 	// Update is called once per frame
@@ -32,6 +33,17 @@ public class Explosion : MonoBehaviour {
             Destroy(this.gameObject);
         }
 	}
+
+    void DamageOnTargets()
+    {
+        foreach(GameObject charact in GameObject.FindGameObjectsWithTag("characters"))
+        {
+            if(Vector2.Distance(transform.position, charact.transform.position) <= radius)
+            {
+                charact.GetComponent<Char_script>().TakeDamage(damage);
+            }
+        }
+    }
 
     List<Transform> GetPointsToAdd()
     {
