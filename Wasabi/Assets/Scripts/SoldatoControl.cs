@@ -16,7 +16,6 @@ public class SoldatoControl : MonoBehaviour
     Rigidbody2D rb;
     bool FacingRight = true;
     Animator anim; //Creer un Animator pour pouvoir lancer l'animation avec anim.Play
-    int canMove;
     bool jumping = false;
 
     void Start()
@@ -31,14 +30,13 @@ public class SoldatoControl : MonoBehaviour
         if (Selected)
         {
             direction = FacingRight ? 1 : -1;
-            canMove = jumping ? 0 : 1;
-            xMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.deltaTime * canMove;
+            xMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.deltaTime;
 
             transform.Translate(xMove * direction, 0, 0);
 
             if (Input.GetKeyDown(KeyCode.Space) && !jumping)
             {
-                rb.AddForce(Vector2.up * 400f);
+                rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
                 jumping = true;
                 anim.SetBool("Jumping", true);
             }

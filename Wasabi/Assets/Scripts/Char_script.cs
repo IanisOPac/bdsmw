@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Char_script : MonoBehaviour
 {
-
-    [SerializeField] GameObject bomb;
     
     private int numEquipe;
     private int numWorms;
@@ -41,7 +39,8 @@ public class Char_script : MonoBehaviour
         set { selected = value; }
     }
     float timePassed, timeDuring;
-    int strengh = 400;
+    //int strengh = 400;
+    int strengh = 600;
     GameObject universe_laws;
     GameObject HUD;
     Vector3 mouse_position;
@@ -102,6 +101,10 @@ public class Char_script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(transform.position.y < -70)
+        {
+            TakeDamage(HpMax);
+        }
         if (Selected)
         {
             ChangeSelected();                           
@@ -124,8 +127,16 @@ public class Char_script : MonoBehaviour
                     timeDuring = Time.time - timePassed;
                     if (timeDuring > 3)
                     {
+                        if (unitVect.x < 0)
+                        {
+                            dir = -1;
+                        }
+                        else
+                        {
+                            dir = 1;
+                        }
                         create = false;
-                        clone = Instantiate(prefabs_bullet, new Vector3(transform.position.x + unitVect.x * 3, transform.position.y), transform.rotation);
+                        clone = Instantiate(prefabs_bullet, new Vector3(transform.position.x + unitVect.x * 3 +dir, transform.position.y), transform.rotation);
                         clone.GetComponent<Rigidbody2D>().AddForce(new Vector3(strengh * timeDuring * unitVect.x, strengh * timeDuring * unitVect.y));
                         shoted = true;
                     }
@@ -144,7 +155,7 @@ public class Char_script : MonoBehaviour
                     {
                         dir = 1;
                     }
-                    clone = Instantiate(prefabs_bullet, new Vector3(transform.position.x + unitVect.x * 3, transform.position.y), transform.rotation);
+                    clone = Instantiate(prefabs_bullet, new Vector3(transform.position.x + unitVect.x * 3 + dir, transform.position.y), transform.rotation);
                     clone.GetComponent<Rigidbody2D>().AddForce(new Vector3(unitVect.x * strengh * timeDuring, unitVect.y * strengh * timeDuring));
                     shoted = true;
                 }

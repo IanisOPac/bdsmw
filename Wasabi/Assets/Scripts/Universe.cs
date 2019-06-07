@@ -12,6 +12,7 @@ public class Universe : MonoBehaviour
     [SerializeField] Text tour;
     [SerializeField] Text joueur;
     private bool gameStart = false;
+    public bool fini = false;
     public bool GameStart { get { return gameStart; } set { gameStart = value; } }
     GameObject clone;
     private bool destroyed = false;
@@ -56,6 +57,7 @@ public class Universe : MonoBehaviour
     }
     private void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("Main Menu");
@@ -79,7 +81,6 @@ public class Universe : MonoBehaviour
                 PlayingTeam = 1;
                 WormsToPlay = new System.Random().Next(lNumWormsJ1.Count);
                 wrms = lNumWormsJ1[WormsToPlay];
-                TimeBeforeChange = 20;
                 gameStart = true;
                 //Démarrage du timer du joueur
                 startTime = Time.time;
@@ -112,7 +113,8 @@ public class Universe : MonoBehaviour
         }
         else if(gameStart)
         {
-            if (Time.time - startTime >= 20)
+            joueur.text = "Joueur " + PlayingTeam;
+            if (Time.time - startTime >= 15)
             {
                 selectedPlayer.GetComponent<Char_script>().Selected = false;
                 selectedPlayer.GetComponent<SoldatoControl>().Selected = false;
@@ -134,7 +136,10 @@ public class Universe : MonoBehaviour
         {
             WormsToPlay = new System.Random().Next(lNumWormsJ1.Count);
             NbTour++;
-            tour.text = "Début du tour " + NbTour;
+            if (!fini)
+            {
+                tour.text = "Début du tour " + NbTour;
+            }            
             wrms = lNumWormsJ1[WormsToPlay];
         }
         else

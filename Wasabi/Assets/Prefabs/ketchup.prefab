@@ -121,11 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5687454009fdfc04a876fa42d5fc0435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bomb: {fileID: 0}
-  hp: 20
-  hpmax: 20
+  hp: 100
+  hpmax: 100
   selected: 0
-  prefabs_bullet: {fileID: 1419527440027464, guid: caf083839c68f234a811a6f4b76399af,
+  prefabs_bullet: {fileID: 1025850693760744, guid: caf083839c68f234a811a6f4b76399af,
     type: 2}
 --- !u!212 &212176271390874900
 SpriteRenderer:

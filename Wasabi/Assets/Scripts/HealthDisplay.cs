@@ -67,11 +67,13 @@ public class HealthDisplay : MonoBehaviour {
         {
             indication.text = "Le joueur 2 a gagné !";
             indication.enabled = true;
+            GameObject.Find("universe_laws").GetComponent<Universe>().fini = true;
         }
         else if (jHealth2.fillAmount == 0)
         {
             indication.text = "Le joueur 1 a gagné !";
             indication.enabled = true;
+            GameObject.Find("universe_laws").GetComponent<Universe>().fini = true;
         }
     }
 
@@ -85,7 +87,7 @@ public class HealthDisplay : MonoBehaviour {
 
     public void SetTime(float currentTime)
     {
-        time = 20 - currentTime;
+        time = 15 - currentTime;
         time = Mathf.Round(time);        
     }
 }

@@ -24,10 +24,11 @@ public class ShotMove : MonoBehaviour
     }*/
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Terrain")
+        if (collision.gameObject.tag == "Terrain" || collision.gameObject.tag == "characters")
         {
             Instantiate(explosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }
+
     }
 }
