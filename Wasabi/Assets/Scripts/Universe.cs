@@ -185,6 +185,11 @@ public class Universe : MonoBehaviour
         }
     }
 
+    void RemoveSoldier (GameObject sender)
+    {
+        Debug.Log("EFFECTUÉ");
+    }
+
     public GameObject Selected
     {
         get { return selected; }

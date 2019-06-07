@@ -75,7 +75,7 @@ public class Explosion : MonoBehaviour {
         for (int i = 0; i < path.Count; i++)
         {
             Vector2 world = mat.MultiplyPoint(path[i]);
-            Debug.Log(Vector2.Distance(world, transform.position));
+            //Debug.Log(Vector2.Distance(world, transform.position));
             if (Vector2.Distance(world, transform.position) <= radius)
             {
                 lPointsID.Add(i);

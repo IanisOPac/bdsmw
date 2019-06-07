@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114560464132316974}
   m_Layer: 0
   m_Name: universe_laws
-  m_TagString: Untagged
+  m_TagString: univ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +55,6 @@ MonoBehaviour:
   tour: {fileID: 0}
   joueur: {fileID: 0}
   startTime: 0
-  charact_mustard: {fileID: 1580656054891330, guid: 49f1d5e5b3df30a4c9117601b4b37197,
-    type: 2}
+  charact_ketchup: {fileID: 0}
   charact_wasabi: {fileID: 1420783099990864, guid: 8239ed64282a2484a82f329a6abf1d1f,
     type: 2}
