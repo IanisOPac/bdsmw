@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Universe : MonoBehaviour
@@ -55,6 +56,10 @@ public class Universe : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
         if(!AllSoldiersCreated)
         {
             joueur.text = "Joueur " + turn;

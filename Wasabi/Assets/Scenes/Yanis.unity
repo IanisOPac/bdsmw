@@ -3655,6 +3655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 1462898559}
   infoEnnemy: {fileID: 1984595714}
+  indication: {fileID: 1772109902}
   jHealth1: {fileID: 1811715128}
   jHealth2: {fileID: 1883554132}
 --- !u!1001 &1280611641

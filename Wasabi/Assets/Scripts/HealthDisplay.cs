@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HealthDisplay : MonoBehaviour {
@@ -11,6 +12,7 @@ public class HealthDisplay : MonoBehaviour {
     private float time;
     [SerializeField] public Text healthText;
     [SerializeField] public Text infoEnnemy;
+    [SerializeField] public Text indication;
     private int hpMaxSoldiers;
     [SerializeField] Image jHealth1;
     [SerializeField] Image jHealth2;
@@ -26,7 +28,7 @@ public class HealthDisplay : MonoBehaviour {
         healthText.text = "Soldat n°" + numWorms + 
                           "\nVie : " + health + "/" + healthMax +
                           "\nTimer : " + time;
-
+        
     }
     public void SetEnnemyInfo(int currentNumEquipe, int currentHealth, int currentHealthMax, int currentNumWorms)
     {
@@ -60,6 +62,16 @@ public class HealthDisplay : MonoBehaviour {
                 float amount = (float)AllHp[1] / hpMaxSoldiers;
                 jHealth2.fillAmount = amount;
             }
+        }
+        if (jHealth1.fillAmount == 0)
+        {
+            indication.text = "Le joueur 2 a gagné !";
+            indication.enabled = true;
+        }
+        else if (jHealth2.fillAmount == 0)
+        {
+            indication.text = "Le joueur 1 a gagné !";
+            indication.enabled = true;
         }
     }
 
