@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1b3fb61e0b72e49b80357edbb9b861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 45
   radius: 5
   numberOfPoints: 18
   empty: {fileID: 1951281584746514, guid: 9fc33fcb9991d82458d4a382dbb0291c, type: 2}

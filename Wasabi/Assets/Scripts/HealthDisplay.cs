@@ -65,13 +65,13 @@ public class HealthDisplay : MonoBehaviour {
         }
         if (jHealth1.fillAmount == 0)
         {
-            indication.text = "Le joueur 2 a gagné !";
+            indication.text = "Le joueur 2 a gagné !\nAppuyez sur echap";
             indication.enabled = true;
             GameObject.Find("universe_laws").GetComponent<Universe>().fini = true;
         }
         else if (jHealth2.fillAmount == 0)
         {
-            indication.text = "Le joueur 1 a gagné !";
+            indication.text = "Le joueur 1 a gagné !\nAppuyez sur echap";
             indication.enabled = true;
             GameObject.Find("universe_laws").GetComponent<Universe>().fini = true;
         }
