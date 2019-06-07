@@ -23,15 +23,14 @@ public class HealthDisplay : MonoBehaviour {
 
     private void Update()
     {
-        healthText.text = "\nSoldat n°" + numWorms + 
+        healthText.text = "Soldat n°" + numWorms + 
                           "\nVie : " + health + "/" + healthMax +
                           "\nTimer : " + time;
 
     }
     public void SetEnnemyInfo(int currentNumEquipe, int currentHealth, int currentHealthMax, int currentNumWorms)
     {
-        infoEnnemy.text = healthText.text =
-       "\nEquipe n°" + currentNumEquipe +
+        infoEnnemy.text = "Equipe n°" + currentNumEquipe +
        "\nSoldat n°" + currentNumWorms +
        "\nVie : " + currentHealth + "/" + currentHealthMax;
     }
@@ -74,7 +73,7 @@ public class HealthDisplay : MonoBehaviour {
 
     public void SetTime(float currentTime)
     {
-        time = 10 - currentTime;
+        time = 20 - currentTime;
         time = Mathf.Round(time);        
     }
 }

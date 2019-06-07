@@ -41,6 +41,7 @@ public class Explosion : MonoBehaviour {
             if(Vector2.Distance(transform.position, charact.transform.position) <= radius)
             {
                 charact.GetComponent<Char_script>().TakeDamage(damage);
+                GameObject.Find("HUD").GetComponent<HealthDisplay>().SetHp();
             }
         }
     }

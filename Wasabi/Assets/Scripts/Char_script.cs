@@ -173,8 +173,7 @@ public class Char_script : MonoBehaviour
 
     private void Death()
     {
-        GameObject obj = GameObject.FindGameObjectWithTag("univ");
-        obj.SendMessage("RemoveSoldier", this.gameObject);
+        universe_laws.SendMessage("RemoveSoldier", this.gameObject);
     }
 
     private void UpdateHealth()

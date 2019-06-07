@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bomb: {fileID: 0}
-  hp: 100
-  hpmax: 100
+  hp: 20
+  hpmax: 20
   selected: 0
   prefabs_bullet: {fileID: 1419527440027464, guid: caf083839c68f234a811a6f4b76399af,
     type: 2}
