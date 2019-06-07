@@ -10,12 +10,20 @@ public class ValeurVol : MonoBehaviour {
     private void Start()
     {
         Valeur = GetComponent<Text>();
+        PlayerPrefs.SetInt("bomb_damage", Mathf.RoundToInt(GameObject.Find("Slider_bomb").GetComponent<Slider>().value*100));
+
     }
 
-    public void TextUpdate (float value)
+    public void TextUpdateSound(float value)
     {
         Valeur.text = Mathf.RoundToInt(value * 100) + " ";
         PlayerPrefs.SetFloat("volume", value);
+    }
+
+    public void TextUpdateBombDamage(float value)
+    {
+        Valeur.text = Mathf.RoundToInt(value * 100) + " ";
+        PlayerPrefs.SetInt("bomb_damage", Mathf.RoundToInt(value *100));
     }
 }
 

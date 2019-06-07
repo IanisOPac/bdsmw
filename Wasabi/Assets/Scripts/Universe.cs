@@ -50,6 +50,7 @@ public class Universe : MonoBehaviour
         //Récupération du nombre de soldat et du volume de la musique de la scène précèdente
         NumWormsMax = PlayerPrefs.GetInt("nbSoldiers");
         GameObject.Find("MusicIG").GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("volume");
+        TimeBeforeChange = PlayerPrefs.GetFloat("timer");
         HUD = GameObject.Find("HUD");
         indic.text = "Joueur " + turn + "\nCliquez pour poser votre soldat " + (characNum[turn - 1] + 1);
         tour.text = "Déploiement\n des unités";
@@ -114,7 +115,7 @@ public class Universe : MonoBehaviour
         else if(gameStart)
         {
             joueur.text = "Joueur " + PlayingTeam;
-            if (Time.time - startTime >= 15)
+            if (Time.time - startTime >= TimeBeforeChange)
             {
                 selectedPlayer.GetComponent<Char_script>().Selected = false;
                 selectedPlayer.GetComponent<SoldatoControl>().Selected = false;

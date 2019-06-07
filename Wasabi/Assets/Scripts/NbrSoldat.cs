@@ -17,6 +17,7 @@ public class NbrSoldat : MonoBehaviour {
     private void Start()
     {
         Text = GameObject.FindGameObjectWithTag("text").GetComponent<Text>();
+        PlayerPrefs.SetInt("nbSoldiers", nbr);
         Text.text = nbr.ToString() + soldat;
     }
      public void OnclickPlus ()
@@ -30,6 +31,7 @@ public class NbrSoldat : MonoBehaviour {
         {
             nbr = 5;
         }
+        PlayerPrefs.SetInt("nbSoldiers", nbr); 
         Text.text = nbr.ToString() + soldat;
 	}
 
@@ -48,6 +50,7 @@ public class NbrSoldat : MonoBehaviour {
         {
             soldat = " soldat";
         }
+        PlayerPrefs.SetInt("nbSoldiers", nbr);
         Text.text = nbr.ToString() + soldat;
     }
 }

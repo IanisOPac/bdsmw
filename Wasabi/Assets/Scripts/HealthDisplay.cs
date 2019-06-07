@@ -16,11 +16,13 @@ public class HealthDisplay : MonoBehaviour {
     private int hpMaxSoldiers;
     [SerializeField] Image jHealth1;
     [SerializeField] Image jHealth2;
+    float TimeBeforeChange;
     private int[] AllHp = new int[]{0,0};
     private void Start()
     {
         healthText.enabled = false;
         infoEnnemy.enabled = false;
+        TimeBeforeChange = PlayerPrefs.GetFloat("timer");
     }
 
     private void Update()
@@ -87,7 +89,7 @@ public class HealthDisplay : MonoBehaviour {
 
     public void SetTime(float currentTime)
     {
-        time = 15 - currentTime;
+        time = TimeBeforeChange - currentTime;
         time = Mathf.Round(time);        
     }
 }

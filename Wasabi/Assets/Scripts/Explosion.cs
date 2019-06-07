@@ -4,14 +4,13 @@ using UnityEngine;
 using Ferr;
 
 public class Explosion : MonoBehaviour {
-    [SerializeField] int damage;
     Ferr2DT_PathTerrain _terrain;
     List<Vector2> _original = new List<Vector2>();
 
     public float radius;
     public int numberOfPoints;
     public GameObject empty;
-
+    int damage;
     GameObject point;
     Matrix4x4 mat;
     float time;
@@ -21,7 +20,7 @@ public class Explosion : MonoBehaviour {
         time = Time.time;
         _terrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Ferr2DT_PathTerrain>();
         mat = _terrain.transform.localToWorldMatrix;
-
+        damage = PlayerPrefs.GetInt("bomb_damage");
         RecreateTerrain();
         DamageOnTargets();
     }
