@@ -15,4 +15,4 @@ Le jeu est réalisé en C# à l'aide du moteur de jeu Unity.
 
 ### Graphismes
 
-Tous les assets du jeu, à l'exception du terrain destructible, ont été réalisés par [Augustin Chandelier](https://www.instagram.com/augustinchandelier).
+Tous les spirtes du jeu ont été réalisés par [Augustin Chandelier](https://www.instagram.com/augustinchandelier).
